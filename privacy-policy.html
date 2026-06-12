@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Política de Privacidade — DLauncher</title>
+<style>
+  :root {
+    --bg: #0f1115;
+    --card: #1a1d24;
+    --text: #e6e8eb;
+    --muted: #9aa3af;
+    --accent: #6ea8fe;
+    --border: #2b2f38;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+  }
+  .wrapper {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  header h1 {
+    font-size: 1.8rem;
+    margin-bottom: 4px;
+  }
+  header p {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin: 2px 0;
+  }
+  nav.lang-switch {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin: 24px 0;
+    flex-wrap: wrap;
+  }
+  nav.lang-switch button {
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  nav.lang-switch button.active {
+    background: var(--accent);
+    color: #0f1115;
+    border-color: var(--accent);
+    font-weight: 600;
+  }
+  .lang-section { display: none; }
+  .lang-section.active { display: block; }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 22px;
+    margin-bottom: 16px;
+  }
+  .card h2 {
+    font-size: 1.05rem;
+    margin: 0 0 10px;
+    color: var(--accent);
+  }
+  .card p, .card li { font-size: 0.95rem; }
+  .card ul { margin: 8px 0; padding-left: 20px; }
+  .card strong { color: var(--text); }
+  .service-name {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  code {
+    background: #2b2f38;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.85em;
+  }
+  footer {
+    text-align: center;
+    margin-top: 32px;
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <header>
+    <h1>Política de Privacidade — DLauncher</h1>
+    <p>Última atualização: Junho de 2026</p>
+    <p>Desenvolvedor: Felipe Neres Ribeiro · neresfelip@gmail.com</p>
+  </header>
+
+  <nav class="lang-switch">
+    <button class="active" onclick="showLang('pt')">Português</button>
+    <button onclick="showLang('en')">English</button>
+    <button onclick="showLang('es')">Español</button>
+  </nav>
+
+  <!-- ================= PT ================= -->
+  <section class="lang-section active" id="pt">
+
+    <div class="card">
+      <h2>1. Informações Gerais</h2>
+      <p>Esta Política de Privacidade descreve como o DLauncher coleta, usa e protege as informações dos usuários. Ao usar o aplicativo, você concorda com os termos descritos neste documento.</p>
+    </div>
+
+    <div class="card">
+      <h2>2. Dados Coletados por Terceiros</h2>
+      <p>O DLauncher integra os seguintes serviços de terceiros, que podem coletar dados automaticamente:</p>
+      <ul>
+        <li><span class="service-name">Firebase Analytics e Crashlytics (Google)</span>Coleta dados de uso anônimos, informações de dispositivo e relatórios de falhas para fins de diagnóstico e melhoria do app. <a href="https://policies.google.com/privacy" target="_blank">Política de privacidade</a></li>
+        <li><span class="service-name">Google AdMob</span>Exibe anúncios e pode coletar identificadores de dispositivo e dados de interação com anúncios. <a href="https://policies.google.com/privacy" target="_blank">Política de privacidade</a></li>
+        <li><span class="service-name">Google Play Billing</span>Processa compras dentro do app (versão premium). Os dados de pagamento são gerenciados exclusivamente pelo Google. <a href="https://policies.google.com/privacy" target="_blank">Política de privacidade</a></li>
+        <li><span class="service-name">Google Firebase Firestore</span>Armazena feedbacks enviados voluntariamente pelo usuário através do app.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>3. Dados Coletados Diretamente pelo App</h2>
+      <p><strong>Feedback do usuário</strong><br>
+      O DLauncher oferece um campo opcional para envio de feedback. O usuário pode ou não informar um nome — qualquer texto inserido é de livre escolha do usuário. Esses dados são armazenados no Firebase Firestore e usados exclusivamente para melhoria do app.</p>
+      <p><strong>Dados de notificação</strong><br>
+      O app utiliza o <code>NotificationListenerService</code> para exibir badges de notificação nos ícones dos apps. Nenhum conteúdo das notificações é lido, armazenado ou compartilhado.</p>
+    </div>
+
+    <div class="card">
+      <h2>4. Dados Não Coletados</h2>
+      <p>O DLauncher <strong>não</strong> coleta:</p>
+      <ul>
+        <li>Dados de localização</li>
+        <li>Contatos</li>
+        <li>Histórico de chamadas</li>
+        <li>Mensagens</li>
+        <li>Fotos ou arquivos do dispositivo</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>5. Compartilhamento de Dados</h2>
+      <p>O DLauncher não vende nem compartilha dados pessoais com terceiros, exceto os serviços descritos na seção 2 para funcionamento do app.</p>
+    </div>
+
+    <div class="card">
+      <h2>6. Retenção de Dados</h2>
+      <p>Os feedbacks armazenados no Firestore são mantidos para fins de análise e melhoria do app. O usuário pode solicitar a exclusão dos seus dados pelo e-mail <a href="mailto:neresfelip@gmail.com">neresfelip@gmail.com</a>.</p>
+    </div>
+
+    <div class="card">
+      <h2>7. Crianças</h2>
+      <p>O DLauncher não é direcionado a crianças menores de 13 anos e não coleta intencionalmente dados pessoais de crianças.</p>
+    </div>
+
+    <div class="card">
+      <h2>8. Doações e Links Externos</h2>
+      <p>O DLauncher possui um botão opcional chamado "Ajude no café do desenvolvedor" na tela "Sobre", que abre o navegador externo para o Mercado Pago. O DLauncher não coleta, processa ou armazena nenhum dado relacionado a essas transações — todo o processamento é feito exclusivamente pelo Mercado Pago, conforme sua própria política de privacidade.</p>
+    </div>
+
+    <div class="card">
+      <h2>9. Alterações nesta Política</h2>
+      <p>Esta política pode ser atualizada periodicamente. A data de última atualização será sempre indicada no topo deste documento.</p>
+    </div>
+
+    <div class="card">
+      <h2>10. Contato</h2>
+      <p>Para dúvidas ou solicitações relacionadas à privacidade, entre em contato: <a href="mailto:neresfelip@gmail.com">neresfelip@gmail.com</a></p>
+    </div>
+
+  </section>
+
+  <!-- ================= EN ================= -->
+  <section class="lang-section" id="en">
+
+    <div class="card">
+      <h2>1. General Information</h2>
+      <p>This Privacy Policy describes how DLauncher collects, uses, and protects user information. By using the app, you agree to the terms described in this document.</p>
+    </div>
+
+    <div class="card">
+      <h2>2. Data Collected by Third Parties</h2>
+      <p>DLauncher integrates the following third-party services, which may automatically collect data:</p>
+      <ul>
+        <li><span class="service-name">Firebase Analytics and Crashlytics (Google)</span>Collects anonymous usage data, device information, and crash reports for diagnostic and improvement purposes. <a href="https://policies.google.com/privacy" target="_blank">Privacy policy</a></li>
+        <li><span class="service-name">Google AdMob</span>Displays ads and may collect device identifiers and ad interaction data. <a href="https://policies.google.com/privacy" target="_blank">Privacy policy</a></li>
+        <li><span class="service-name">Google Play Billing</span>Processes in-app purchases (premium version). Payment data is managed exclusively by Google. <a href="https://policies.google.com/privacy" target="_blank">Privacy policy</a></li>
+        <li><span class="service-name">Google Firebase Firestore</span>Stores feedback voluntarily submitted by the user through the app.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>3. Data Collected Directly by the App</h2>
+      <p><strong>User feedback</strong><br>
+      DLauncher provides an optional feedback field. Users may or may not include a name — any text entered is entirely the user's choice. This data is stored in Firebase Firestore and used solely for app improvement purposes.</p>
+      <p><strong>Notification data</strong><br>
+      The app uses <code>NotificationListenerService</code> to display notification badges on app icons. No notification content is read, stored, or shared.</p>
+    </div>
+
+    <div class="card">
+      <h2>4. Data Not Collected</h2>
+      <p>DLauncher does <strong>not</strong> collect:</p>
+      <ul>
+        <li>Location data</li>
+        <li>Contacts</li>
+        <li>Call history</li>
+        <li>Messages</li>
+        <li>Photos or device files</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>5. Data Sharing</h2>
+      <p>DLauncher does not sell or share personal data with third parties, except for the services described in section 2 required for app functionality.</p>
+    </div>
+
+    <div class="card">
+      <h2>6. Data Retention</h2>
+      <p>Feedback stored in Firestore is retained for analysis and app improvement. Users may request deletion of their data by contacting <a href="mailto:neresfelip@gmail.com">neresfelip@gmail.com</a>.</p>
+    </div>
+
+    <div class="card">
+      <h2>7. Children</h2>
+      <p>DLauncher is not directed at children under 13 years of age and does not knowingly collect personal data from children.</p>
+    </div>
+
+    <div class="card">
+      <h2>8. Donations and External Links</h2>
+      <p>DLauncher includes an optional button called "Buy the developer a coffee" on the "About" screen, which opens the external browser to Mercado Pago. DLauncher does not collect, process, or store any data related to these transactions — all processing is handled exclusively by Mercado Pago, according to its own privacy policy.</p>
+    </div>
+
+    <div class="card">
+      <h2>9. Changes to This Policy</h2>
+      <p>This policy may be updated periodically. The last updated date will always be indicated at the top of this document.</p>
+    </div>
+
+    <div class="card">
+      <h2>10. Contact</h2>
+      <p>For privacy-related questions or requests, please contact: <a href="mailto:neresfelip@gmail.com">neresfelip@gmail.com</a></p>
+    </div>
+
+  </section>
+
+  <!-- ================= ES ================= -->
+  <section class="lang-section" id="es">
+
+    <div class="card">
+      <h2>1. Información General</h2>
+      <p>Esta Política de Privacidad describe cómo DLauncher recopila, usa y protege la información de los usuarios. Al usar la aplicación, aceptas los términos descritos en este documento.</p>
+    </div>
+
+    <div class="card">
+      <h2>2. Datos Recopilados por Terceros</h2>
+      <p>DLauncher integra los siguientes servicios de terceros, que pueden recopilar datos automáticamente:</p>
+      <ul>
+        <li><span class="service-name">Firebase Analytics y Crashlytics (Google)</span>Recopila datos de uso anónimos, información del dispositivo e informes de errores con fines de diagnóstico y mejora de la app. <a href="https://policies.google.com/privacy" target="_blank">Política de privacidad</a></li>
+        <li><span class="service-name">Google AdMob</span>Muestra anuncios y puede recopilar identificadores de dispositivo y datos de interacción con anuncios. <a href="https://policies.google.com/privacy" target="_blank">Política de privacidad</a></li>
+        <li><span class="service-name">Google Play Billing</span>Procesa compras dentro de la app (versión premium). Los datos de pago son gestionados exclusivamente por Google. <a href="https://policies.google.com/privacy" target="_blank">Política de privacidad</a></li>
+        <li><span class="service-name">Google Firebase Firestore</span>Almacena comentarios enviados voluntariamente por el usuario a través de la app.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>3. Datos Recopilados Directamente por la App</h2>
+      <p><strong>Comentarios del usuario</strong><br>
+      DLauncher ofrece un campo opcional para enviar comentarios. El usuario puede o no incluir un nombre — cualquier texto ingresado es de libre elección del usuario. Estos datos se almacenan en Firebase Firestore y se utilizan exclusivamente para mejorar la app.</p>
+      <p><strong>Datos de notificaciones</strong><br>
+      La app utiliza <code>NotificationListenerService</code> para mostrar insignias de notificación en los íconos de las apps. Ningún contenido de las notificaciones es leído, almacenado ni compartido.</p>
+    </div>
+
+    <div class="card">
+      <h2>4. Datos No Recopilados</h2>
+      <p>DLauncher <strong>no</strong> recopila:</p>
+      <ul>
+        <li>Datos de ubicación</li>
+        <li>Contactos</li>
+        <li>Historial de llamadas</li>
+        <li>Mensajes</li>
+        <li>Fotos o archivos del dispositivo</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>5. Compartición de Datos</h2>
+      <p>DLauncher no vende ni comparte datos personales con terceros, excepto los servicios descritos en la sección 2 necesarios para el funcionamiento de la app.</p>
+    </div>
+
+    <div class="card">
+      <h2>6. Retención de Datos</h2>
+      <p>Los comentarios almacenados en Firestore se conservan para análisis y mejora de la app. El usuario puede solicitar la eliminación de sus datos escribiendo a <a href="mailto:neresfelip@gmail.com">neresfelip@gmail.com</a>.</p>
+    </div>
+
+    <div class="card">
+      <h2>7. Menores de Edad</h2>
+      <p>DLauncher no está dirigido a menores de 13 años y no recopila intencionalmente datos personales de niños.</p>
+    </div>
+
+    <div class="card">
+      <h2>8. Donaciones y Enlaces Externos</h2>
+      <p>DLauncher incluye un botón opcional llamado "Ayuda con el café del desarrollador" en la pantalla "Acerca de", que abre el navegador externo hacia Mercado Pago. DLauncher no recopila, procesa ni almacena ningún dato relacionado con estas transacciones — todo el procesamiento es realizado exclusivamente por Mercado Pago, conforme a su propia política de privacidad.</p>
+    </div>
+
+    <div class="card">
+      <h2>9. Cambios en esta Política</h2>
+      <p>Esta política puede actualizarse periódicamente. La fecha de última actualización siempre estará indicada en la parte superior de este documento.</p>
+    </div>
+
+    <div class="card">
+      <h2>10. Contacto</h2>
+      <p>Para consultas o solicitudes relacionadas con la privacidad, contacta a: <a href="mailto:neresfelip@gmail.com">neresfelip@gmail.com</a></p>
+    </div>
+
+  </section>
+
+  <footer>
+    DLauncher © 2026 — Felipe Neres Ribeiro
+  </footer>
+
+</div>
+
+<script>
+function showLang(lang) {
+  document.querySelectorAll('.lang-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.lang-switch button').forEach(b => b.classList.remove('active'));
+  document.getElementById(lang).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
+
+</body>
+</html>
