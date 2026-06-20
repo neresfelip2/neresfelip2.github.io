@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exclusão de Dados — DLauncher</title>
+<style>
+  :root {
+    --bg: #0f1115;
+    --card: #1a1d24;
+    --text: #e6e8eb;
+    --muted: #9aa3af;
+    --accent: #6ea8fe;
+    --border: #2b2f38;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+  }
+  .wrapper {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  header h1 {
+    font-size: 1.8rem;
+    margin-bottom: 4px;
+  }
+  header p {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin: 2px 0;
+  }
+  nav.lang-switch {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin: 24px 0;
+    flex-wrap: wrap;
+  }
+  nav.lang-switch button {
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  nav.lang-switch button.active {
+    background: var(--accent);
+    color: #0f1115;
+    border-color: var(--accent);
+    font-weight: 600;
+  }
+  .lang-section { display: none; }
+  .lang-section.active { display: block; }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 22px;
+    margin-bottom: 16px;
+  }
+  .card h2 {
+    font-size: 1.05rem;
+    margin: 0 0 10px;
+    color: var(--accent);
+  }
+  .card p, .card li { font-size: 0.95rem; }
+  .card p { margin: 0 0 10px; }
+  .card p:last-child { margin-bottom: 0; }
+  .card ul { margin: 8px 0; padding-left: 20px; }
+  .card strong { color: var(--text); }
+
+  /* Step list */
+  .step-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .step-list li {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.95rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .step-list li:first-child { padding-top: 0; }
+  .step-list li:last-child { border-bottom: none; padding-bottom: 0; }
+  .step-num {
+    background: rgba(110, 168, 254, 0.12);
+    color: var(--accent);
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 5px;
+    padding: 2px 7px;
+    flex-shrink: 0;
+    margin-top: 3px;
+  }
+
+  /* Email block */
+  .email-block {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    background: rgba(110, 168, 254, 0.07);
+    border: 1px solid rgba(110, 168, 254, 0.25);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-top: 16px;
+  }
+  .email-block span {
+    font-size: 0.9rem;
+    color: var(--accent);
+    font-family: ui-monospace, "Cascadia Code", "Source Code Pro", monospace;
+  }
+  .copy-btn {
+    background: var(--accent);
+    color: #0f1115;
+    border: none;
+    border-radius: 6px;
+    padding: 5px 14px;
+    font-size: 0.82rem;
+    font-family: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.15s;
+    white-space: nowrap;
+  }
+  .copy-btn:hover { opacity: 0.85; }
+
+  /* Data tags */
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+  }
+  .tag {
+    font-size: 0.78rem;
+    background: #2b2f38;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 3px 9px;
+    color: var(--muted);
+    font-family: ui-monospace, "Cascadia Code", "Source Code Pro", monospace;
+  }
+
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  footer {
+    text-align: center;
+    margin-top: 32px;
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <header>
+    <h1>Exclusão de Dados — DLauncher</h1>
+    <p>Última atualização: Junho de 2026</p>
+    <p>Desenvolvedor: Felipe Neres Ribeiro · neresfelip@gmail.com</p>
+  </header>
+
+  <nav class="lang-switch">
+    <button class="active" onclick="showLang('pt')">Português</button>
+    <button onclick="showLang('en')">English</button>
+    <button onclick="showLang('es')">Español</button>
+  </nav>
+
+  <!-- ================= PT ================= -->
+  <section class="lang-section active" id="pt">
+
+    <div class="card">
+      <h2>1. Dados Armazenados pelo DLauncher</h2>
+      <p>O DLauncher pode armazenar os seguintes dados enviados voluntariamente pelo usuário através do formulário de feedback no app:</p>
+      <div class="tag-row">
+        <span class="tag">texto do feedback</span>
+        <span class="tag">versão do app</span>
+        <span class="tag">versão do Android</span>
+        <span class="tag">modelo do dispositivo</span>
+      </div>
+      <p style="margin-top: 12px;">Nenhum dado de identificação pessoal é coletado automaticamente.</p>
+    </div>
+
+    <div class="card">
+      <h2>2. Como Solicitar a Exclusão</h2>
+      <ul class="step-list">
+        <li>
+          <span class="step-num">01</span>
+          <span>Envie um email com o assunto <strong>"Exclusão de Dados — DLauncher"</strong> para o endereço abaixo.</span>
+        </li>
+        <li>
+          <span class="step-num">02</span>
+          <span>Informe o modelo do seu dispositivo e a versão do app (disponível em Configurações → Sobre) para facilitar a identificação.</span>
+        </li>
+        <li>
+          <span class="step-num">03</span>
+          <span>Você receberá uma confirmação em até <strong>10 dias úteis</strong>. A exclusão será concluída em até <strong>30 dias</strong>.</span>
+        </li>
+      </ul>
+      <div class="email-block">
+        <span>neresfelip@gmail.com</span>
+        <button class="copy-btn" onclick="copyEmail(this, 'Copiar email')">Copiar email</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>3. Dados de Serviços Terceiros</h2>
+      <p>O DLauncher integra serviços de terceiros que podem coletar dados de forma independente:</p>
+      <ul>
+        <li><strong>Firebase Analytics e Crashlytics (Google)</strong> — coleta dados de uso anônimos e relatórios de falhas. <a href="https://firebase.google.com/support/privacy" target="_blank">Política de privacidade</a></li>
+        <li><strong>Google AdMob</strong> — exibe anúncios e pode coletar identificadores de dispositivo. <a href="https://policies.google.com/privacy" target="_blank">Política de privacidade</a></li>
+        <li><strong>Google Play Billing</strong> — processa compras dentro do app. Os dados de pagamento são gerenciados exclusivamente pelo Google. <a href="https://policies.google.com/privacy" target="_blank">Política de privacidade</a></li>
+      </ul>
+      <p>Para excluir dados processados por esses serviços, consulte diretamente as políticas de cada um.</p>
+    </div>
+
+  </section>
+
+  <!-- ================= EN ================= -->
+  <section class="lang-section" id="en">
+
+    <div class="card">
+      <h2>1. Data Stored by DLauncher</h2>
+      <p>DLauncher may store the following data voluntarily submitted by the user through the in-app feedback form:</p>
+      <div class="tag-row">
+        <span class="tag">feedback text</span>
+        <span class="tag">app version</span>
+        <span class="tag">Android version</span>
+        <span class="tag">device model</span>
+      </div>
+      <p style="margin-top: 12px;">No personally identifiable information is collected automatically.</p>
+    </div>
+
+    <div class="card">
+      <h2>2. How to Request Deletion</h2>
+      <ul class="step-list">
+        <li>
+          <span class="step-num">01</span>
+          <span>Send an email with the subject <strong>"Data Deletion — DLauncher"</strong> to the address below.</span>
+        </li>
+        <li>
+          <span class="step-num">02</span>
+          <span>Include your device model and app version (available under Settings → About) to help us identify your data.</span>
+        </li>
+        <li>
+          <span class="step-num">03</span>
+          <span>You will receive a confirmation within <strong>10 business days</strong>. Deletion will be completed within <strong>30 days</strong>.</span>
+        </li>
+      </ul>
+      <div class="email-block">
+        <span>neresfelip@gmail.com</span>
+        <button class="copy-btn" onclick="copyEmail(this, 'Copy email')">Copy email</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>3. Third-Party Service Data</h2>
+      <p>DLauncher integrates third-party services that may collect data independently:</p>
+      <ul>
+        <li><strong>Firebase Analytics &amp; Crashlytics (Google)</strong> — collects anonymous usage data and crash reports. <a href="https://firebase.google.com/support/privacy" target="_blank">Privacy policy</a></li>
+        <li><strong>Google AdMob</strong> — displays ads and may collect device identifiers. <a href="https://policies.google.com/privacy" target="_blank">Privacy policy</a></li>
+        <li><strong>Google Play Billing</strong> — processes in-app purchases. Payment data is managed exclusively by Google. <a href="https://policies.google.com/privacy" target="_blank">Privacy policy</a></li>
+      </ul>
+      <p>To delete data processed by these services, please refer to their respective privacy policies directly.</p>
+    </div>
+
+  </section>
+
+  <!-- ================= ES ================= -->
+  <section class="lang-section" id="es">
+
+    <div class="card">
+      <h2>1. Datos Almacenados por DLauncher</h2>
+      <p>DLauncher puede almacenar los siguientes datos enviados voluntariamente por el usuario a través del formulario de comentarios en la app:</p>
+      <div class="tag-row">
+        <span class="tag">texto del comentario</span>
+        <span class="tag">versión de la app</span>
+        <span class="tag">versión de Android</span>
+        <span class="tag">modelo del dispositivo</span>
+      </div>
+      <p style="margin-top: 12px;">No se recopila automáticamente ningún dato de identificación personal.</p>
+    </div>
+
+    <div class="card">
+      <h2>2. Cómo Solicitar la Eliminación</h2>
+      <ul class="step-list">
+        <li>
+          <span class="step-num">01</span>
+          <span>Envía un correo con el asunto <strong>"Eliminación de Datos — DLauncher"</strong> a la dirección indicada a continuación.</span>
+        </li>
+        <li>
+          <span class="step-num">02</span>
+          <span>Indica el modelo de tu dispositivo y la versión de la app (disponible en Ajustes → Acerca de) para facilitar la identificación.</span>
+        </li>
+        <li>
+          <span class="step-num">03</span>
+          <span>Recibirás una confirmación en un plazo de <strong>10 días hábiles</strong>. La eliminación se completará en un máximo de <strong>30 días</strong>.</span>
+        </li>
+      </ul>
+      <div class="email-block">
+        <span>neresfelip@gmail.com</span>
+        <button class="copy-btn" onclick="copyEmail(this, 'Copiar correo')">Copiar correo</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>3. Datos de Servicios de Terceros</h2>
+      <p>DLauncher integra servicios de terceros que pueden recopilar datos de forma independiente:</p>
+      <ul>
+        <li><strong>Firebase Analytics y Crashlytics (Google)</strong> — recopila datos de uso anónimos e informes de fallos. <a href="https://firebase.google.com/support/privacy" target="_blank">Política de privacidad</a></li>
+        <li><strong>Google AdMob</strong> — muestra anuncios y puede recopilar identificadores del dispositivo. <a href="https://policies.google.com/privacy" target="_blank">Política de privacidad</a></li>
+        <li><strong>Google Play Billing</strong> — procesa compras dentro de la app. Los datos de pago son gestionados exclusivamente por Google. <a href="https://policies.google.com/privacy" target="_blank">Política de privacidad</a></li>
+      </ul>
+      <p>Para eliminar los datos procesados por estos servicios, consulta directamente sus respectivas políticas de privacidad.</p>
+    </div>
+
+  </section>
+
+  <footer>
+    DLauncher © 2026 — Felipe Neres Ribeiro
+  </footer>
+
+</div>
+
+<script>
+function showLang(lang) {
+  document.querySelectorAll('.lang-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.lang-switch button').forEach(b => b.classList.remove('active'));
+  document.getElementById(lang).classList.add('active');
+  event.target.classList.add('active');
+}
+
+function copyEmail(btn, originalLabel) {
+  navigator.clipboard.writeText('neresfelip@gmail.com').then(() => {
+    btn.textContent = '✓';
+    setTimeout(() => btn.textContent = originalLabel, 2000);
+  });
+}
+</script>
+
+</body>
+</html>
