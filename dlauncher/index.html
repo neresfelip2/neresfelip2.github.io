@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DLauncher — Launcher Minimalista para Android</title>
+<style>
+  :root {
+    --bg: #0f1115;
+    --card: #1a1d24;
+    --text: #e6e8eb;
+    --muted: #9aa3af;
+    --accent: #6ea8fe;
+    --border: #2b2f38;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+  }
+  .wrapper {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    text-align: center;
+    padding: 56px 0 48px;
+  }
+  .hero-eyebrow {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: rgba(110, 168, 254, 0.10);
+    border: 1px solid rgba(110, 168, 254, 0.22);
+    border-radius: 999px;
+    padding: 4px 14px;
+    margin-bottom: 22px;
+  }
+  .hero h1 {
+    font-size: clamp(2rem, 6vw, 3rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+  .hero h1 span {
+    color: var(--accent);
+  }
+  .hero p {
+    color: var(--muted);
+    font-size: 1.05rem;
+    max-width: 480px;
+    margin: 0 auto 32px;
+  }
+  .cta-row {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--accent);
+    color: #0f1115;
+    font-size: 0.9rem;
+    font-weight: 700;
+    font-family: inherit;
+    padding: 12px 24px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: opacity 0.15s;
+  }
+  .btn-primary:hover { opacity: 0.85; text-decoration: none; }
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    color: var(--text);
+    font-size: 0.9rem;
+    font-weight: 600;
+    font-family: inherit;
+    padding: 12px 24px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    text-decoration: none;
+    transition: border-color 0.15s;
+  }
+  .btn-secondary:hover { border-color: var(--accent); text-decoration: none; }
+
+  /* ── Divider ── */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 8px 0 32px;
+  }
+
+  /* ── Section title ── */
+  .section-title {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  /* ── Cards ── */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 22px;
+    margin-bottom: 16px;
+  }
+  .card h2 {
+    font-size: 1.05rem;
+    margin-bottom: 10px;
+    color: var(--accent);
+  }
+  .card p {
+    font-size: 0.95rem;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+  .card p:last-child { margin-bottom: 0; }
+  .card ul {
+    font-size: 0.95rem;
+    color: var(--muted);
+    padding-left: 20px;
+    margin: 8px 0 0;
+  }
+  .card ul li { margin-bottom: 6px; }
+  .card ul li:last-child { margin-bottom: 0; }
+  .card strong { color: var(--text); }
+
+  /* ── Feature grid ── */
+  .feature-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  @media (max-width: 480px) {
+    .feature-grid { grid-template-columns: 1fr; }
+  }
+  .feature-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 20px;
+  }
+  .feature-icon {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+  }
+  .feature-card h3 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--text);
+  }
+  .feature-card p {
+    font-size: 0.87rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* ── Tier carousel ── */
+  .tier-carousel-wrapper {
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+  .tier-carousel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  @media (max-width: 560px) {
+    .tier-carousel-wrapper {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scroll-snap-type: x mandatory;
+      padding-bottom: 8px;
+    }
+    .tier-carousel {
+      display: flex;
+      gap: 12px;
+      width: max-content;
+    }
+    .tier-carousel .plan-card {
+      width: 72vw;
+      max-width: 300px;
+      flex-shrink: 0;
+      scroll-snap-align: start;
+    }
+  }
+  .plan-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .plan-card.featured {
+    border-color: rgba(110, 168, 254, 0.45);
+    background: rgba(110, 168, 254, 0.05);
+  }
+  .plan-badge {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: rgba(110, 168, 254, 0.15);
+    color: var(--accent);
+    border-radius: 5px;
+    padding: 2px 8px;
+    margin-bottom: 10px;
+  }
+  .plan-card h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .plan-price {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+  .plan-price strong {
+    font-size: 1.3rem;
+    color: var(--text);
+    font-weight: 700;
+  }
+  .plan-features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 0.88rem;
+  }
+  .plan-features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 5px 0;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+  }
+  .plan-features li:last-child { border-bottom: none; }
+  .plan-features li .check { color: var(--accent); flex-shrink: 0; }
+  .plan-features li .lock { color: #3d4250; flex-shrink: 0; }
+  .ads-note {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+    line-height: 1.5;
+  }
+  .donation-note {
+    font-size: 0.88rem;
+    color: var(--muted);
+    text-align: center;
+    margin-bottom: 16px;
+  }
+
+  /* ── FAQ ── */
+  .faq-item {
+    border-bottom: 1px solid var(--border);
+    padding: 16px 0;
+  }
+  .faq-item:first-child { padding-top: 0; }
+  .faq-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .faq-q {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+  .faq-a {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ── Tag row ── */
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 12px;
+  }
+  .tag {
+    font-size: 0.78rem;
+    background: #2b2f38;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 3px 9px;
+    color: var(--muted);
+    font-family: ui-monospace, "Cascadia Code", "Source Code Pro", monospace;
+  }
+
+  /* ── Screenshots ── */
+  .screenshot-scroll {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 10px;
+    margin-bottom: 16px;
+  }
+  .screenshot-scroll::-webkit-scrollbar { height: 4px; }
+  .screenshot-scroll::-webkit-scrollbar-track { background: var(--border); border-radius: 2px; }
+  .screenshot-scroll::-webkit-scrollbar-thumb { background: #3d4250; border-radius: 2px; }
+  .screenshot-scroll img {
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    flex-shrink: 0;
+    scroll-snap-align: start;
+    display: block;
+    background: var(--card);
+  }
+  .screenshot-scroll.smartphone img {
+    height: 420px;
+    width: auto; /* 1200:2670 ≈ 0.449 → ~189px */
+  }
+  .screenshot-scroll.tablet img {
+    height: 340px;
+    width: auto; /* 1200:2000 = 0.6 → ~204px */
+  }
+  @media (max-width: 560px) {
+    .screenshot-scroll.smartphone img { height: 340px; }
+    .screenshot-scroll.tablet img { height: 260px; }
+  }
+
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  footer {
+    text-align: center;
+    margin-top: 48px;
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+  footer a { color: var(--muted); }
+  footer a:hover { color: var(--accent); text-decoration: none; }
+  .footer-links {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- Hero -->
+  <section class="hero">
+    <span class="hero-eyebrow">Android Launcher</span>
+    <h1>Seu celular.<br><span>Do seu jeito.</span></h1>
+    <p>DLauncher é um launcher limpo e minimalista — tela inicial com widgets, gaveta organizada e sem a bagunça dos launchers tradicionais.</p>
+    <div class="cta-row">
+      <a href="https://play.google.com/store/apps/details?id=br.com.felipeneresdev.dlauncher" class="btn-primary" target="_blank">
+        ▶ Baixar no Google Play
+      </a>
+      <a href="#planos" class="btn-secondary">
+        Ver versões
+      </a>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- Screenshots — Smartphone -->
+  <p class="section-title">Smartphone</p>
+  <div class="screenshot-scroll smartphone">
+    <img src="https://neresfelip2.github.io/dlauncher/screenshots/smartphone_1.png" alt="DLauncher screenshot 1" loading="lazy">
+    <img src="https://neresfelip2.github.io/dlauncher/screenshots/smartphone_2.png" alt="DLauncher screenshot 2" loading="lazy">
+    <img src="https://neresfelip2.github.io/dlauncher/screenshots/smartphone_3.png" alt="DLauncher screenshot 3" loading="lazy">
+    <img src="https://neresfelip2.github.io/dlauncher/screenshots/smartphone_4.png" alt="DLauncher screenshot 4" loading="lazy">
+    <img src="https://neresfelip2.github.io/dlauncher/screenshots/smartphone_5.png" alt="DLauncher screenshot 5" loading="lazy">
+  </div>
+
+  <!-- Screenshots — Tablet -->
+  <p class="section-title">Tablet</p>
+  <div class="screenshot-scroll tablet">
+    <img src="https://neresfelip2.github.io/dlauncher/screenshots/tablet_1.png" alt="DLauncher tablet screenshot 1" loading="lazy">
+    <img src="https://neresfelip2.github.io/dlauncher/screenshots/tablet_2.png" alt="DLauncher tablet screenshot 2" loading="lazy">
+    <img src="https://neresfelip2.github.io/dlauncher/screenshots/tablet_3.png" alt="DLauncher tablet screenshot 3" loading="lazy">
+    <img src="https://neresfelip2.github.io/dlauncher/screenshots/tablet_4.png" alt="DLauncher tablet screenshot 4" loading="lazy">
+    <img src="https://neresfelip2.github.io/dlauncher/screenshots/tablet_5.png" alt="DLauncher tablet screenshot 5" loading="lazy">
+  </div>
+
+  <hr class="divider">
+
+  <!-- Funcionalidades -->
+  <p class="section-title">Funcionalidades</p>
+  <div class="feature-grid">
+    <div class="feature-card">
+      <div class="feature-icon">🏠</div>
+      <h3>Tela inicial com widgets</h3>
+      <p>Monte sua tela inicial do zero com os widgets que quiser — sem elementos fixos, sem bloatware.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📄</div>
+      <h3>Páginas</h3>
+      <p>Organize sua tela inicial em múltiplas páginas e mantenha cada coisa no seu lugar.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📁</div>
+      <h3>Pastas</h3>
+      <p>Agrupe seus apps em pastas para manter tudo organizado sem poluir a visualização principal.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📌</div>
+      <h3>Dock</h3>
+      <p>Fixe até 4 apps de acesso rápido no dock, sempre visíveis na parte inferior da tela.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🎨</div>
+      <h3>Adapta à sua papel de parede</h3>
+      <p>As cores do texto se ajustam automaticamente à cor dominante da sua papel de parede.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">⚡</div>
+      <h3>Gaveta organizada</h3>
+      <p>Todos os seus apps em ordem alfabética, sempre a um deslize de distância.</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- Planos -->
+  <p class="section-title" id="planos">Versões</p>
+  <div class="tier-carousel-wrapper">
+    <div class="tier-carousel">
+
+      <div class="plan-card">
+        <h3>Free</h3>
+        <p class="plan-price">Gratuito</p>
+        <ul class="plan-features">
+          <li><span class="check">✓</span> Tela inicial com widgets</li>
+          <li><span class="check">✓</span> Até 2 páginas</li>
+          <li><span class="check">✓</span> Gaveta de apps completa</li>
+          <li><span class="check">✓</span> Até 4 pastas</li>
+          <li><span class="check">✓</span> Dock com até 4 apps</li>
+          <li><span class="check">✓</span> Adaptação à papel de parede</li>
+          <li><span class="lock">○</span> Barra de busca flutuante</li>
+        </ul>
+        <p class="ads-note">Inclui anúncios — eles ajudam a manter o projeto independente. ❤️</p>
+      </div>
+
+      <div class="plan-card featured">
+        <span class="plan-badge">Pro</span>
+        <h3>DLauncher Pro</h3>
+        <p class="plan-price"><strong>R$ 9,99</strong> compra única</p>
+        <ul class="plan-features">
+          <li><span class="check">✓</span> Tudo do Free, sem anúncios</li>
+          <li><span class="check">✓</span> Páginas ilimitadas</li>
+          <li><span class="check">✓</span> Pastas ilimitadas</li>
+          <li><span class="check">✓</span> Dock ilimitado</li>
+          <li><span class="check">✓</span> Barra de busca flutuante</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <p class="donation-note">Quer apoiar o projeto sem comprar o Pro? <a href="https://link.mercadopago.com.br/dlauncher" target="_blank">Faça uma doação →</a></p>
+
+
+  <hr class="divider">
+
+  <!-- FAQ -->
+  <p class="section-title">Perguntas frequentes</p>
+  <div class="card">
+    <div class="faq-item">
+      <p class="faq-q">O DLauncher coleta dados pessoais?</p>
+      <p class="faq-a">Não automaticamente. Os únicos dados armazenados são os que você envia voluntariamente pelo formulário de feedback: texto, versão do app, versão do Android e modelo do dispositivo.</p>
+    </div>
+    <div class="faq-item">
+      <p class="faq-q">Posso usar sem criar conta?</p>
+      <p class="faq-a">Sim. O DLauncher não exige cadastro. Basta instalar e definir como launcher padrão.</p>
+    </div>
+    <div class="faq-item">
+      <p class="faq-q">O Pro é uma assinatura?</p>
+      <p class="faq-a">Não. O DLauncher Pro é um pagamento único de R$ 9,99 feito diretamente pelo Google Play. Sem mensalidades.</p>
+    </div>
+    <div class="faq-item">
+      <p class="faq-q">Como defino o DLauncher como launcher padrão?</p>
+      <p class="faq-a">Após instalar, pressione o botão Home no seu celular. O Android vai perguntar qual launcher usar — selecione DLauncher e escolha "Sempre".</p>
+    </div>
+    <div class="faq-item">
+      <p class="faq-q">Como solicitar a exclusão dos meus dados?</p>
+      <p class="faq-a">Acesse a <a href="exclusao-de-dados.html">página de exclusão de dados</a> e siga as instruções. A resposta chega em até 10 dias úteis.</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- Privacidade resumida -->
+  <p class="section-title">Privacidade</p>
+  <div class="card">
+    <h2>Dados coletados</h2>
+    <p>Apenas o que você envia voluntariamente pelo formulário de feedback:</p>
+    <div class="tag-row">
+      <span class="tag">texto do feedback</span>
+      <span class="tag">versão do app</span>
+      <span class="tag">versão do Android</span>
+      <span class="tag">modelo do dispositivo</span>
+    </div>
+    <p style="margin-top: 14px;">Serviços de terceiros integrados (Firebase Analytics, Crashlytics, AdMob) podem coletar dados de uso anônimos conforme suas próprias políticas.</p>
+  </div>
+
+  <footer>
+    <div class="footer-links">
+      <a href="exclusao-de-dados.html">Exclusão de dados</a>
+      <a href="https://play.google.com/store/apps/details?id=br.com.felipeneresdev.dlauncher" target="_blank">Google Play</a>
+      <a href="mailto:neresfelip@gmail.com">Contato</a>
+    </div>
+    DLauncher © 2026 — Felipe Neres Ribeiro
+  </footer>
+
+</div>
+</body>
+</html>
